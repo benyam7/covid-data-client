@@ -17,7 +17,7 @@ type QueryParams = {
     limit?: number;
 };
 
-const buildQuery = (baseURL: string, params: QueryParams): string => {
+const buildURL = (baseURL: string, params: QueryParams): string => {
     const url = new URL(baseURL);
 
     Object.entries(params).forEach(([key, value]) => {
@@ -39,7 +39,7 @@ export type CountryData = {
 };
 export function useTotalCases(query: QueryParams) {
     const baseUrl = 'http://localhost:8000/api/comparison';
-    const url = buildQuery(baseUrl, query);
+    const url = buildURL(baseUrl, query);
     const { data, error, isLoading } = useSWR<CountryData[]>(url, fetcher);
 
     return {

@@ -1,13 +1,6 @@
 import * as React from 'react';
 
-import {
-    Area,
-    AreaChart,
-    CartesianGrid,
-    Line,
-    LineChart,
-    XAxis,
-} from 'recharts';
+import { CartesianGrid, Line, LineChart, XAxis } from 'recharts';
 
 import {
     Card,
@@ -29,6 +22,7 @@ import { CountryData, useTotalCases } from './lib/api/api';
 import Spinner from './components/ui/spinner';
 import { BASELINE_COUNTRY } from './lib/utils/constants';
 import { DateRangePicker } from './components/ui/date-picker-range';
+import { useIsMobile } from './lib/hooks/useIsMobile';
 
 export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
     // let chartData: CountryData[] = [];
@@ -65,7 +59,7 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
         query_type: 'total_cases',
         startDate: starDate.toISOString().split('T')[0],
         endDate: endDate.toISOString().split('T')[0],
-        limit: 10000,
+        limit: 10,
         page: 1,
     });
 
@@ -121,6 +115,7 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
             setChartConfig(updateChartConfig(countries));
         }
     }, [data, comparisonCountries, starDate, endDate]);
+    const isMobile = useIsMobile();
 
     return (
         <div className="flex w-full space-x-10 ">
@@ -132,7 +127,8 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
                             Compare case trends between regions or demographics
                             over time.
                         </CardDescription>
-                        <div className="w-1/6">
+
+                        <div className="flex flex-col space-y-5 md:space-x-10 md:flex-row md:w-3/6">
                             <DateRangePicker
                                 onUpdate={(values) => {
                                     console.log('values', values);
@@ -146,27 +142,17 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
                                 align="start"
                                 locale="en-US"
                             />
+                            {isMobile && (
+                                <ComparisonInput
+                                    onSelect={onComparisonInputChange}
+                                    className="w-full"
+                                    title="Add/Remove Countries"
+                                    role="Countries"
+                                />
+                            )}
                         </div>
                     </div>
-                    {/* <Select value={timeRange} onValueChange={setTimeRange}>
-                        <SelectTrigger
-                            className="w-[160px] rounded-lg sm:ml-auto"
-                            aria-label="Select a value"
-                        >
-                            <SelectValue placeholder="Last 3 months" />
-                        </SelectTrigger>
-                        <SelectContent className="rounded-xl">
-                            <SelectItem value="90d" className="rounded-lg">
-                                Last 3 months
-                            </SelectItem>
-                            <SelectItem value="30d" className="rounded-lg">
-                                Last 30 days
-                            </SelectItem>
-                            <SelectItem value="7d" className="rounded-lg">
-                                Last 7 days
-                            </SelectItem>
-                        </SelectContent>
-                    </Select> */}
+
                     {isLoading && <Spinner />}
                 </CardHeader>
                 <CardContent className="px-2 pt-4 f sm:px-6 sm:pt-6">
@@ -238,81 +224,14 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
                             ))}
                             <ChartLegend content={<ChartLegendContent />} />
                         </LineChart>
-
-                        {/* <AreaChart data={filteredData}>
-                            <defs>
-                                {dataKeys?.map((key) => (
-                                    <linearGradient
-                                        id={`fill${key}`}
-                                        x1="0"
-                                        y1="0"
-                                        x2="0"
-                                        y2="1"
-                                        key={key}
-                                    >
-                                        <stop
-                                            offset="5%"
-                                            stopColor={chartConfig[key].color}
-                                            stopOpacity={0.8}
-                                        />
-                                        <stop
-                                            offset="95%"
-                                            stopColor={chartConfig[key].color}
-                                            stopOpacity={0.1}
-                                        />
-                                    </linearGradient>
-                                ))}
-                            </defs>
-                            <CartesianGrid vertical={false} />
-                            <XAxis
-                                dataKey="date"
-                                tickLine={false}
-                                axisLine={false}
-                                tickMargin={8}
-                                minTickGap={32}
-                                tickFormatter={(value) => {
-                                    const date = new Date(value);
-                                    return date.toLocaleDateString('en-US', {
-                                        month: 'short',
-                                        day: 'numeric',
-                                    });
-                                }}
-                            />
-                            <ChartTooltip
-                                cursor={false}
-                                content={
-                                    <ChartTooltipContent
-                                        labelFormatter={(value) => {
-                                            return new Date(
-                                                value
-                                            ).toLocaleDateString('en-US', {
-                                                month: 'short',
-                                                day: 'numeric',
-                                            });
-                                        }}
-                                        indicator="dot"
-                                    />
-                                }
-                            />
-                            {dataKeys?.map((key) => (
-                                <Area
-                                    key={key}
-                                    dataKey={key}
-                                    type="natural"
-                                    fill={`url(#fill${key})`}
-                                    stroke={chartConfig[key].color}
-                                    stackId="a"
-                                />
-                            ))}
-                            <ChartLegend content={<ChartLegendContent />} />
-                        </AreaChart> */}
                     </ChartContainer>
                 </CardContent>
             </Card>
-            {/* <Button className="block md:hidden"></Button> */}
             <ComparisonInput
                 onSelect={onComparisonInputChange}
                 className="hidden w-1/5 md:block"
+                title="Add/Remove Countries"
+                role="Countries"
             />
         </div>
     );

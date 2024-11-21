@@ -18,15 +18,21 @@ import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { countries } from '@/lib/utils/countries';
 import { BASELINE_COUNTRY } from '@/lib/utils/constants';
+import { useIsMobile } from '@/lib/hooks/useIsMobile';
 
 export const ComparisonInput = React.memo(
     ({
         onSelect,
         className = '',
+        title,
+        role,
     }: {
         onSelect: (selectedItems: string[]) => void;
         className?: string;
+        title: string;
+        role: string;
     }) => {
+        const isMobile = useIsMobile();
         const [open, setOpen] = useState(false);
         const [selectedCountries, setSelectedCountries] = useState<string[]>([
             BASELINE_COUNTRY,
@@ -59,10 +65,10 @@ export const ComparisonInput = React.memo(
 
         return (
             <div className={cn('mb-4', className)}>
-                <label className="block mb-2 text-gray-700">
-                    Comparison Countries/Regions:
+                <label className="block mb-2 text-sm text-gray-700 uppercase">
+                    {title}
                 </label>
-                <Popover open={open} onOpenChange={setOpen}>
+                <Popover open={isMobile ? open : true} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
                         <Button
                             variant="outline"
@@ -72,16 +78,18 @@ export const ComparisonInput = React.memo(
                         >
                             {selectedCountries.length > 0
                                 ? `${selectedCountries.length} selected`
-                                : 'Select countries/regions'}
+                                : `Select ${role}...`}
                             <ChevronDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-full p-0">
                         <Command className="w-full">
-                            <CommandInput placeholder="Search countries/regions..." />
+                            <CommandInput role={`Search ${role}...`} />
                             <CommandList>
                                 <ScrollArea className="w-full h-72">
-                                    <CommandGroup heading="Selected countries/regions">
+                                    <CommandGroup
+                                        heading={`Selected ${role}...`}
+                                    >
                                         {selectedCountries &&
                                             selectedCountries.map((item) => (
                                                 <CommandItem
@@ -90,49 +98,14 @@ export const ComparisonInput = React.memo(
                                                         handleToggle(item)
                                                     }
                                                 >
-                                                    <Button
+                                                    {/* This is causing an issue, button nested in button error in react. */}
+                                                    {/* <Button
                                                         onClick={() =>
                                                             handleToggle(item)
                                                         }
                                                         variant={'outline'}
                                                         className="justify-start w-full h-5 p-0 m-0 border-0 bg-none hover:bg-none focus:bg-none"
-                                                    >
-                                                        <Checkbox
-                                                            checked={selectedCountries.includes(
-                                                                item
-                                                            )}
-                                                            onCheckedChange={() =>
-                                                                handleToggle(
-                                                                    item
-                                                                )
-                                                            }
-                                                            id={item}
-                                                        />
-                                                        <label
-                                                            htmlFor={item}
-                                                            className="ml-2"
-                                                        >
-                                                            {item}
-                                                        </label>
-                                                    </Button>
-                                                </CommandItem>
-                                            ))}
-                                    </CommandGroup>
-                                    <CommandGroup heading="All Countries / Regions">
-                                        {allCountriesAndRegions.map((item) => (
-                                            <CommandItem
-                                                key={item}
-                                                onSelect={() =>
-                                                    handleToggle(item)
-                                                }
-                                            >
-                                                <Button
-                                                    onClick={() =>
-                                                        handleToggle(item)
-                                                    }
-                                                    variant={'outline'}
-                                                    className="justify-start w-full h-5 p-0 m-0 border-0 bg-none hover:bg-none focus:bg-none"
-                                                >
+                                                    > */}
                                                     <Checkbox
                                                         checked={selectedCountries.includes(
                                                             item
@@ -148,7 +121,41 @@ export const ComparisonInput = React.memo(
                                                     >
                                                         {item}
                                                     </label>
-                                                </Button>
+                                                    {/* </Button> */}
+                                                </CommandItem>
+                                            ))}
+                                    </CommandGroup>
+                                    <CommandGroup heading={`All ${role}...`}>
+                                        {allCountriesAndRegions.map((item) => (
+                                            <CommandItem
+                                                key={item}
+                                                onSelect={() =>
+                                                    handleToggle(item)
+                                                }
+                                            >
+                                                {/* <Button
+                                                    onClick={() =>
+                                                        handleToggle(item)
+                                                    }
+                                                    variant={'outline'}
+                                                    className="justify-start w-full h-5 p-0 m-0 border-0 bg-none hover:bg-none focus:bg-none"
+                                                > */}
+                                                <Checkbox
+                                                    checked={selectedCountries.includes(
+                                                        item
+                                                    )}
+                                                    onCheckedChange={() =>
+                                                        handleToggle(item)
+                                                    }
+                                                    id={item}
+                                                />
+                                                <label
+                                                    htmlFor={item}
+                                                    className="ml-2"
+                                                >
+                                                    {item}
+                                                </label>
+                                                {/* </Button> */}
                                             </CommandItem>
                                         ))}
                                     </CommandGroup>
