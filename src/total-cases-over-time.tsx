@@ -24,26 +24,23 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from '@/components/ui/chart';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select';
-import { DatePickerWithRange } from '@/components/ui/date-picker-range';
 import { ComparisonInput } from '@/components/ui/comparision-input';
-import { sampleData } from './lib/data/sampleData';
 import { CountryData, useTotalCases } from './lib/api/api';
 import Spinner from './components/ui/spinner';
 import { BASELINE_COUNTRY } from './lib/utils/constants';
-import { Button } from 'react-day-picker';
+import { DateRangePicker } from './components/ui/date-picker-range';
 
 export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
     // let chartData: CountryData[] = [];
     const [comparisonCountries, setComparisonCountries] = React.useState<
         string[]
     >([BASELINE_COUNTRY]);
+
+    const [starDate, setStartDate] = React.useState<Date>(
+        new Date('2020-09-01')
+    );
+    const [endDate, setEndDate] = React.useState<Date>(new Date());
+
     const [dataKeys, setDataKeys] = React.useState<string[]>([
         BASELINE_COUNTRY,
     ]);
@@ -66,15 +63,13 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
     const { isError, isLoading, data } = useTotalCases({
         country: comparisonCountries,
         query_type: 'total_cases',
-        startDate: '2020-09-01',
-        endDate: '2023-09-01',
+        startDate: starDate.toISOString().split('T')[0],
+        endDate: endDate.toISOString().split('T')[0],
         limit: 10000,
         page: 1,
     });
 
     console.log('is error', isError, 'isLoading', isLoading, 'data', data);
-
-    const [timeRange, setTimeRange] = React.useState('90d');
 
     // Define colors for the char
     const colors = [
@@ -106,8 +101,6 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
         );
     };
 
-    // const chartConfig: ChartConfig = console.log('chartConfig', chartConfig);
-
     const onComparisonInputChange = (values: string[]) => {
         console.log('Comparison input changed:', values);
         setComparisonCountries((prevCountries: string[]) => {
@@ -127,7 +120,7 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
 
             setChartConfig(updateChartConfig(countries));
         }
-    }, [data, comparisonCountries]);
+    }, [data, comparisonCountries, starDate, endDate]);
 
     return (
         <div className="flex w-full space-x-10 ">
@@ -139,7 +132,21 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
                             Compare case trends between regions or demographics
                             over time.
                         </CardDescription>
-                        <DatePickerWithRange />
+                        <div className="w-1/6">
+                            <DateRangePicker
+                                onUpdate={(values) => {
+                                    console.log('values', values);
+
+                                    setStartDate(values.range.from);
+                                    if (values.range.to)
+                                        setEndDate(values.range.to);
+                                }}
+                                initialDateFrom={starDate}
+                                initialDateTo={endDate}
+                                align="start"
+                                locale="en-US"
+                            />
+                        </div>
                     </div>
                     {/* <Select value={timeRange} onValueChange={setTimeRange}>
                         <SelectTrigger
@@ -162,7 +169,7 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
                     </Select> */}
                     {isLoading && <Spinner />}
                 </CardHeader>
-                <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
+                <CardContent className="px-2 pt-4 f sm:px-6 sm:pt-6">
                     <ChartContainer
                         config={chartConfig}
                         className="aspect-auto h-[250px] w-full"
