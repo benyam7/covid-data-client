@@ -1,91 +1,113 @@
-COVID-19 Data Visualization Platform
+# COVID-19 Data Visualization Platform
 
 This project provides an interactive platform for visualizing COVID-19-related data, focusing on age demographics, mortality rates, vaccination coverage, and pandemic trends across regions and countries. It combines advanced data fetching, caching strategies, and dynamic visualizations to deliver a seamless user experience.
 
-Features
+---
 
-1. Age Proportions and Mortality Analysis
+## Features
 
-    • Component: AgeGroupProportionsVsCasesAndDeathsChart
-    • Visualizes age demographics (65+ vs. 70+) and highlights total deaths in a region or country.
-    • Allows dynamic region selection via a dropdown menu.
-    • Caching and memoization ensure smooth data handling.
+### Age Proportions and Mortality Analysis
 
-2. Pandemic Trends Across Regions
+-   **Component**: `AgeGroupProportionsVsCasesAndDeathsChart`
+    -   Visualizes age demographics (65+ vs. 70+) and highlights total deaths in a region or country.
+    -   Allows dynamic region selection via a dropdown menu.
+    -   Caching and memoization ensure smooth data handling.
 
-    • Component: TotalCasesVsTotalDeathsAcrossRegions
-    • Compares total cases, total deaths, and average smoking rates (male and female) across regions.
-    • Utilizes bar charts for clear comparative analysis.
+---
 
-3. Total Deaths Over Time
+### Pandemic Trends Across Regions
 
-    • Component: TotalDeathsOverTimeForSelectedRegions
-    • Tracks total deaths over time for selected regions, enabling users to compare mortality trends.
-    • Dynamic date range and region selection with real-time updates.
+-   **Component**: `TotalCasesVsTotalDeathsAcrossRegions`
+    -   Compares total cases, total deaths, and average smoking rates (male and female) across regions.
+    -   Utilizes bar charts for clear comparative analysis.
 
-4. Global Vaccination Coverage
+---
 
-    • Component: VaccinationCoverageChoropleth
-    • Choropleth map visualizing the percentage of vaccinated people worldwide.
-    • Provides a global overview of vaccination progress and disparities.
+### Total Deaths Over Time
 
-Technology Stack
+-   **Component**: `TotalDeathsOverTimeForSelectedRegions`
+    -   Tracks total deaths over time for selected regions, enabling users to compare mortality trends.
+    -   Dynamic date range and region selection with real-time updates.
 
-Frontend
+---
 
-    •	Framework: React with TypeScript
-    •	Charting Libraries: Recharts, Nivo
-    •	Styling: Tailwind CSS, ShadCN components
-    •	State Management: React Hooks, Memoization
+### Global Vaccination Coverage
 
-Backend
+-   **Component**: `VaccinationCoverageChoropleth`
+    -   Choropleth map visualizing the percentage of vaccinated people worldwide.
+    -   Provides a global overview of vaccination progress and disparities.
 
-    •	Framework: Node.js
-    •	Database: MongoDB
-    •	Caching: Redis
+---
 
-Caching Strategies
+## Technology Stack
+
+### Frontend
+
+-   **Framework**: React with TypeScript
+-   **Charting Libraries**: Recharts, Nivo
+-   **Styling**: Tailwind CSS, ShadCN components
+-   **State Management**: React Hooks, Memoization
+
+### Backend
+
+-   **Framework**: Node.js
+-   **Database**: MongoDB
+-   **Caching**: Redis
+
+---
+
+## Caching Strategies
 
 Efficient data handling is critical for performance and scalability. The platform employs the following caching strategies:
 
-1. Client-Side Caching with SWR
+### Client-Side Caching with SWR
 
-    • Usage: Fetches data using hooks like useSWR for real-time updates.
-    • Benefits:
-    • Automatically handles revalidation.
-    • Caches API responses to avoid redundant network requests.
-    • Gracefully handles loading and error states.
+-   **Usage**: Fetches data using hooks like `useSWR` for real-time updates.
+-   **Benefits**:
+    -   Automatically handles revalidation.
+    -   Caches API responses to avoid redundant network requests.
+    -   Gracefully handles loading and error states.
 
-2. Backend Caching with Redis
+---
 
-    • Usage: Stores aggregated data from MongoDB to reduce computation overhead.
-    • Implementation:
-    • Each query generates a unique cache key based on parameters like region, date, etc.
-    • Data is cached for a defined TTL (time-to-live), ensuring freshness while reducing database hits.
+### Backend Caching with Redis
 
-3. Memoization
+-   **Usage**: Stores aggregated data from MongoDB to reduce computation overhead.
+-   **Implementation**:
+    -   Each query generates a unique cache key based on parameters like region, date, etc.
+    -   Data is cached for a defined TTL (time-to-live), ensuring freshness while reducing database hits.
 
-    • Usage: Components like AgeGroupProportionsVsCasesAndDeathsChart and TotalDeathsOverTimeForSelectedRegions use React.useMemo for expensive computations (e.g., filtering or aggregating data).
-    • Benefits:
-    • Optimizes rendering performance.
-    • Prevents unnecessary recalculations.
+---
 
-How to Run the Project
+### Memoization
 
-Prerequisites
+-   **Usage**: Components like `AgeGroupProportionsVsCasesAndDeathsChart` and `TotalDeathsOverTimeForSelectedRegions` use `React.useMemo` for expensive computations (e.g., filtering or aggregating data).
+-   **Benefits**:
+    -   Optimizes rendering performance.
+    -   Prevents unnecessary recalculations.
 
-    •	Node.js: v16+
-    •	MongoDB: A running instance of MongoDB.
-    •	Redis: A running Redis server for backend caching.
+---
 
-Setup
+## How to Run the Project
 
-    1.	Clone the repository:
+### Prerequisites
 
-git clone https://github.com/covid-data-benyam.git
-cd your-repo
+-   **Node.js**: v16+
+-   **MongoDB**: A running instance of MongoDB.
+-   **Redis**: A running Redis server for backend caching.
+
+---
+
+### Setup
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/covid-data-benyam.git
+    cd covid-data-benyam
 
     2.	Install dependencies:
+    ```
 
 npm install
 
@@ -93,17 +115,22 @@ npm install
 
 npm run dev
 
-    5.	Open the app in your browser:
+    4.	Open the app in your browser:
 
 http://localhost:3000
 
 Use Cases
 
-    1.	Public Health Analysis
-    •	Identify age demographics most affected by COVID-19.
-    •	Compare mortality trends and vaccination rates across regions.
-    2.	Policy Decision Support
-    •	Visualize global vaccination coverage to guide resource allocation.
-    •	Analyze the impact of health behaviors like smoking on pandemic outcomes.
-    3.	Research and Reporting
-    •	Use charts to support academic studies and media reports.
+1. Public Health Analysis
+
+    • Identify age demographics most affected by COVID-19.
+    • Compare mortality trends and vaccination rates across regions.
+
+2. Policy Decision Support
+
+    • Visualize global vaccination coverage to guide resource allocation.
+    • Analyze the impact of health behaviors like smoking on pandemic outcomes.
+
+3. Research and Reporting
+
+    • Use charts to support academic studies and media reports.
