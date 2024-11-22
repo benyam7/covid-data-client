@@ -22,7 +22,7 @@ export function SelectRegion({
             onValueChange={(value) => {
                 onRegionChange(value);
             }}
-            value={BASELINE_REGION}
+            defaultValue={BASELINE_REGION}
         >
             <SelectTrigger className="w-[280px]">
                 <SelectValue placeholder="Select a region" />
