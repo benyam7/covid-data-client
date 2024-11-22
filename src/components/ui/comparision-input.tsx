@@ -16,8 +16,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { countries } from '@/lib/utils/countries';
-import { BASELINE_COUNTRY } from '@/lib/utils/constants';
 import { useIsMobile } from '@/lib/hooks/useIsMobile';
 
 export const ComparisonInput = React.memo(
@@ -26,21 +24,25 @@ export const ComparisonInput = React.memo(
         className = '',
         title,
         role,
+        comparisonInputs,
+        baselineInput,
     }: {
         onSelect: (selectedItems: string[]) => void;
         className?: string;
         title: string;
         role: string;
+        comparisonInputs: string[];
+        baselineInput: string;
     }) => {
         const isMobile = useIsMobile();
         const [open, setOpen] = useState(false);
         const [selectedCountries, setSelectedCountries] = useState<string[]>([
-            BASELINE_COUNTRY,
+            baselineInput,
         ]);
 
         // So, baseline country wont be listed both in selected and all countries group
-        const countriesAndRegions = countries.filter(
-            (c) => c !== BASELINE_COUNTRY
+        const countriesAndRegions = comparisonInputs.filter(
+            (c) => c !== baselineInput
         );
 
         const [allCountriesAndRegions, setAllCountriesAndRegions] =

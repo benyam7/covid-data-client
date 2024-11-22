@@ -59,7 +59,7 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
         query_type: 'total_cases',
         startDate: starDate.toISOString().split('T')[0],
         endDate: endDate.toISOString().split('T')[0],
-        limit: 10,
+        limit: 10000,
         page: 1,
     });
 
