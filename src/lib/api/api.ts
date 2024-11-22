@@ -37,6 +37,15 @@ export type CountryData = {
     date: string; // The date of the data
     [country: string]: string | number; // Country names as keys with their respective values as numbers
 };
+export type RegionData = {
+    _id: string;
+    region: string;
+    total_cases: number;
+    total_deaths: number;
+    female_smokers: number;
+    male_smokers: number;
+};
+
 export function useTotalCases(query: QueryParams) {
     const baseUrl = 'http://localhost:8000/api/comparison';
     const url = buildURL(baseUrl, query);
@@ -44,6 +53,18 @@ export function useTotalCases(query: QueryParams) {
 
     return {
         data,
+        isLoading,
+        isError: error,
+    };
+}
+
+export function useRegionsAggregates() {
+    const baseUrl = 'http://localhost:8000/api/regions-aggregates';
+    const { data, error, isLoading } = useSWR<RegionData[]>(baseUrl, fetcher);
+    return {
+        data: data?.filter((region) => {
+            return region._id !== null;
+        }),
         isLoading,
         isError: error,
     };
