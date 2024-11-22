@@ -23,6 +23,7 @@ import Spinner from './components/ui/spinner';
 import { BASELINE_COUNTRY } from './lib/utils/constants';
 import { DateRangePicker } from './components/ui/date-picker-range';
 import { useIsMobile } from './lib/hooks/useIsMobile';
+import { countries } from './lib/utils/countries';
 
 export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
     // let chartData: CountryData[] = [];
@@ -122,10 +123,17 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
             <Card className="w-full md:w-4/5">
                 <CardHeader className="flex items-center gap-2 py-5 space-y-0 border-b sm:flex-row">
                     <div className="grid flex-1 gap-3 text-center sm:text-left">
-                        <CardTitle>Time Series Comparison</CardTitle>
+                        <CardTitle>
+                            Country-wise Total Cases Comparison Over a Selected
+                            Period
+                        </CardTitle>
                         <CardDescription>
-                            Compare case trends between regions or demographics
-                            over time.
+                            This visualization highlights the total number of
+                            cases across selected countries within a specified
+                            time period. It provides valuable insights into the
+                            distribution and trends of cases globally, helping
+                            to identify countries with higher case counts and
+                            track the progression of the pandemic over time.
                         </CardDescription>
 
                         <div className="flex flex-col space-y-5 md:space-x-10 md:flex-row md:w-3/6">
@@ -148,6 +156,8 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
                                     className="w-full"
                                     title="Add/Remove Countries"
                                     role="Countries"
+                                    comparisonInputs={countries}
+                                    baselineInput={BASELINE_COUNTRY}
                                 />
                             )}
                         </div>
@@ -218,7 +228,7 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
                                     dataKey={key}
                                     type="monotone"
                                     stroke={chartConfig[key]?.color}
-                                    strokeWidth={2}
+                                    strokeWidth={1}
                                     dot={false}
                                 />
                             ))}
@@ -232,6 +242,8 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
                 className="hidden w-1/5 md:block"
                 title="Add/Remove Countries"
                 role="Countries"
+                comparisonInputs={countries}
+                baselineInput={BASELINE_COUNTRY}
             />
         </div>
     );
