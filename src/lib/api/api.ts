@@ -1,3 +1,4 @@
+import React from 'react';
 import useSWR from 'swr';
 
 export const fetcher = <T>(...args: [RequestInfo, RequestInit?]): Promise<T> =>
@@ -44,6 +45,8 @@ export type RegionData = {
     total_deaths: number;
     female_smokers: number;
     male_smokers: number;
+    aged_65_older?: number;
+    aged_70_older?: number;
 };
 
 export function useTotalCases(query: QueryParams) {
@@ -59,12 +62,24 @@ export function useTotalCases(query: QueryParams) {
 }
 
 export function useRegionsAggregates() {
-    const baseUrl = 'http://localhost:8000/api/regions-aggregates';
+    const baseUrl = 'http://localhost:8000/api/region-aggregations';
     const { data, error, isLoading } = useSWR<RegionData[]>(baseUrl, fetcher);
     return {
-        data: data?.filter((region) => {
-            return region._id !== null;
-        }),
+        data: data
+            ?.filter((region) => {
+                return region._id !== null;
+            })
+            .map((region) => {
+                return {
+                    ...region,
+                    total_cases: region.total_cases / 1000 || 0,
+                    total_deaths: region.total_deaths / 1000 || 0,
+                    female_smokers: region.female_smokers || 0,
+                    male_smokers: region.male_smokers || 0,
+                    aged_65_older: region.aged_65_older || 0,
+                    aged_70_older: region.aged_70_older || 0,
+                };
+            }),
         isLoading,
         isError: error,
     };

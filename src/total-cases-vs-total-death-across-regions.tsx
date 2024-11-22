@@ -15,6 +15,7 @@ import {
     ChartTooltipContent,
 } from '@/components/ui/chart';
 import { useRegionsAggregates } from './lib/api/api';
+import { formatLargeNumber } from './lib/utils';
 
 const chartConfig = {
     total_cases: {
@@ -34,19 +35,6 @@ const chartConfig = {
         color: 'hsl(var(--chart-4))',
     },
 } satisfies ChartConfig;
-
-function formatLargeNumber(value: number): string {
-    if (value >= 1_000_000_000) {
-        return (value / 1_000_000_000).toFixed(1) + 'B';
-    }
-    if (value >= 1_000_000) {
-        return (value / 1_000_000).toFixed(1) + 'M';
-    }
-    if (value >= 1_000) {
-        return (value / 1_000).toFixed(1) + 'K';
-    }
-    return value.toString();
-}
 
 export function TotalCasesVsTotalDeathsAcrossRegions() {
     const { data, isError, isLoading } = useRegionsAggregates();

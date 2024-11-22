@@ -32,7 +32,7 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
     >([BASELINE_COUNTRY]);
 
     const [starDate, setStartDate] = React.useState<Date>(
-        new Date('2020-09-01')
+        new Date('2020-01-30')
     );
     const [endDate, setEndDate] = React.useState<Date>(new Date());
 
