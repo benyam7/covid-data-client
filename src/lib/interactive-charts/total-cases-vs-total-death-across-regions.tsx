@@ -14,8 +14,8 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from '@/components/ui/chart';
-import { useRegionsAggregates } from './lib/api/api';
-import { formatLargeNumber } from './lib/utils';
+import { useRegionsAggregates } from '@/lib/api/api';
+import { formatLargeNumber } from '@/lib/utils';
 
 const chartConfig = {
     total_cases: {

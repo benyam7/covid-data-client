@@ -18,12 +18,12 @@ import {
     ChartTooltipContent,
 } from '@/components/ui/chart';
 import { ComparisonInput } from '@/components/ui/comparision-input';
-import { CountryData, useTotalCases } from './lib/api/api';
-import Spinner from './components/ui/spinner';
-import { BASELINE_COUNTRY } from './lib/utils/constants';
-import { DateRangePicker } from './components/ui/date-picker-range';
-import { useIsMobile } from './lib/hooks/useIsMobile';
-import { countries } from './lib/utils/countries';
+import { CountryData, useTotalCases } from '@/lib/api/api';
+import Spinner from '@/components/ui/spinner';
+import { BASELINE_COUNTRY } from '@/lib/utils/constants';
+import { DateRangePicker } from '@/components/ui/date-picker-range';
+import { useIsMobile } from '@/lib/hooks/useIsMobile';
+import { countries } from '@/lib/utils/countries';
 
 export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
     // let chartData: CountryData[] = [];

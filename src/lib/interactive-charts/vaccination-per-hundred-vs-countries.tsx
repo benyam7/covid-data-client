@@ -6,10 +6,10 @@ import {
     CardDescription,
     CardHeader,
     CardTitle,
-} from './components/ui/card';
-import { useIsMobile } from './lib/hooks/useIsMobile';
-import { useVaccinationCoverage } from './lib/api/api';
-import Spinner from './components/ui/spinner';
+} from '@/components/ui/card';
+import { useIsMobile } from '@/lib/hooks/useIsMobile';
+import { useVaccinationCoverage } from '@/lib/api/api';
+import Spinner from '@/components/ui/spinner';
 import React from 'react';
 
 export const VaccinationCoverageChoropleth = () => {

@@ -9,8 +9,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { regions } from './lib/utils/regions';
-import { BASELINE_REGION } from './lib/utils/constants';
+import { regions } from '../utils/regions';
+import { BASELINE_REGION } from '@/lib/utils/constants';
 
 export function SelectRegion({
     onRegionChange,

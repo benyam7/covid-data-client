@@ -19,10 +19,10 @@ import {
     ChartTooltipContent,
 } from '@/components/ui/chart';
 import { SelectRegion } from './regions-select';
-import { useRegionsAggregates } from './lib/api/api';
-import { BASELINE_REGION } from './lib/utils/constants';
-import Spinner from './components/ui/spinner';
-import { formatLargeNumber } from './lib/utils';
+import { useRegionsAggregates } from '../api/api';
+import { BASELINE_REGION } from '@/lib/utils/constants';
+import Spinner from '@/components/ui/spinner';
+import { formatLargeNumber } from '@/lib/utils';
 
 const chartConfig = {
     visitors: {
