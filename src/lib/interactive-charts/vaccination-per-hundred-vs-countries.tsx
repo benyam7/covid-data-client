@@ -61,6 +61,10 @@ export const VaccinationCoverageChoropleth = () => {
                         valueFormat=".2s"
                         projectionTranslation={[0.5, 0.5]}
                         projectionRotation={[0, 0, 0]}
+                        projectionScale={100}
+                        projectionType="mercator"
+                        graticuleLineWidth={0.5}
+                        isInteractive={true}
                         enableGraticule={true}
                         graticuleLineColor="rgba(0, 0, 0, .2)"
                         borderWidth={0.5}

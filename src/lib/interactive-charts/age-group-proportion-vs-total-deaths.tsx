@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { TrendingUp } from 'lucide-react';
 import { Label, Pie, PieChart } from 'recharts';
 
 import {
@@ -72,6 +71,13 @@ export function AgeGroupProportionsVsCasesAndDeathsChart() {
           ]
         : [];
 
+    if (isError) {
+        return (
+            <div className="text-center text-destructive">
+                Unable to load regions data. Please try again later.
+            </div>
+        );
+    }
     return (
         <Card className="flex flex-col">
             <CardHeader className="items-center pb-0">

@@ -276,6 +276,7 @@ export const TotalDeathsOverTimeForSelectedRegions = React.memo(
                     title="Add/Remove Regions"
                     role="Regions"
                     comparisonInputs={regions}
+                    openByDefault={false}
                     baselineInput={BASELINE_REGION}
                 />
             </div>
