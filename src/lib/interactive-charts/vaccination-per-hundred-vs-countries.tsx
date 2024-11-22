@@ -17,7 +17,6 @@ export const VaccinationCoverageChoropleth = () => {
     const { isLoading, data, isError } = useVaccinationCoverage();
     const chartData = React.useMemo(() => {
         if (data) {
-            console.log('Data loaded:', data);
             return data;
         }
         return [];

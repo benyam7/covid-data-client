@@ -40,7 +40,6 @@ export function TotalCasesVsTotalDeathsAcrossRegions() {
     const { data, isError, isLoading } = useRegionsAggregates();
     const chartData = React.useMemo(() => {
         if (data) {
-            console.log('Data loaded:', data);
             return data;
         }
         return [];

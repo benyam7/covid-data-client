@@ -64,8 +64,6 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
         page: 1,
     });
 
-    console.log('is error', isError, 'isLoading', isLoading, 'data', data);
-
     // Define colors for the char
     const colors = [
         '#8884d8',
@@ -97,7 +95,6 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
     };
 
     const onComparisonInputChange = (values: string[]) => {
-        console.log('Comparison input changed:', values);
         setComparisonCountries((prevCountries: string[]) => {
             if (prevCountries.length > values.length) {
                 return [...values];
@@ -139,8 +136,6 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
                         <div className="flex flex-col space-y-5 md:space-x-10 md:flex-row md:w-3/6">
                             <DateRangePicker
                                 onUpdate={(values) => {
-                                    console.log('values', values);
-
                                     setStartDate(values.range.from);
                                     if (values.range.to)
                                         setEndDate(values.range.to);

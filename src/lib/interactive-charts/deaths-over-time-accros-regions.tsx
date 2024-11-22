@@ -67,8 +67,6 @@ export const TotalDeathsOverTimeForSelectedRegions = React.memo(
             page: 1,
         });
 
-        console.log('is error', isError, 'isLoading', isLoading, 'data', data);
-
         // Define colors for the char
         const colors = [
             '#8884d8',
@@ -84,9 +82,6 @@ export const TotalDeathsOverTimeForSelectedRegions = React.memo(
             'hsl(var(--chart-4))',
             'hsl(var(--chart-5))',
         ]; // Add more colors if needed
-
-        console.log('Chart Config:', chartConfig);
-        console.log('Data Keys:', dataKeys);
 
         const updateChartConfig = (dataKeys: string[]): ChartConfig => {
             return (
@@ -109,7 +104,6 @@ export const TotalDeathsOverTimeForSelectedRegions = React.memo(
         };
 
         const onComparisonInputChange = (values: string[]) => {
-            console.log('Comparison input changed:', values);
             setComparisonRegions((prevCountries: string[]) => {
                 if (prevCountries.length > values.length) {
                     return [...values];
@@ -154,8 +148,6 @@ export const TotalDeathsOverTimeForSelectedRegions = React.memo(
                             <div className="flex flex-col space-y-5 md:space-x-10 md:flex-row md:w-3/6">
                                 <DateRangePicker
                                     onUpdate={(values) => {
-                                        console.log('values', values);
-
                                         setStartDate(values.range.from);
                                         if (values.range.to)
                                             setEndDate(values.range.to);
@@ -181,6 +173,9 @@ export const TotalDeathsOverTimeForSelectedRegions = React.memo(
                         {isLoading && <Spinner />}
                     </CardHeader>
                     <CardContent className="px-2 pt-4 f sm:px-6 sm:pt-6">
+                        {isError && (
+                            <div className="text-destructive">Error</div>
+                        )}
                         <ChartContainer
                             config={chartConfig}
                             className="aspect-auto h-[250px] w-full"
@@ -249,11 +244,6 @@ export const TotalDeathsOverTimeForSelectedRegions = React.memo(
                                     }
                                 />
                                 {dataKeys.map((key) => {
-                                    console.log(
-                                        'char config color',
-                                        chartConfig[key]?.color,
-                                        `url(#fill${key})`
-                                    );
                                     return (
                                         <Area
                                             key={key}

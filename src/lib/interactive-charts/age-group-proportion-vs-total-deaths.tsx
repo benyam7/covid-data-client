@@ -92,7 +92,6 @@ export function AgeGroupProportionsVsCasesAndDeathsChart() {
                 <SelectRegion
                     onRegionChange={(region) => {
                         setSelectedRegion(region);
-                        console.log('chart data', chartData);
                     }}
                 />
             </CardHeader>
