@@ -84,3 +84,21 @@ export function useRegionsAggregates() {
         isError: error,
     };
 }
+
+export type VaccinationCoverage = {
+    id: string;
+    value: number;
+};
+export function useVaccinationCoverage() {
+    const baseUrl = 'http://localhost:8000/api/vaccination-coverage';
+    const { data, error, isLoading } = useSWR<VaccinationCoverage[]>(
+        baseUrl,
+        fetcher
+    );
+
+    return {
+        data,
+        isError: error,
+        isLoading,
+    };
+}
