@@ -52,7 +52,9 @@ export function AgeGroupProportionsVsCasesAndDeathsChart() {
     }, [data, selectedRegion]);
 
     // Get the selected region data
-    const selectedData = data?.find((region) => region._id === selectedRegion);
+    const selectedData = React.useMemo(() => {
+        return data?.find((region) => region._id === selectedRegion);
+    }, [data, selectedRegion]);
 
     // Prepare chart data
     const chartData = selectedData
@@ -70,9 +72,11 @@ export function AgeGroupProportionsVsCasesAndDeathsChart() {
           ]
         : [];
 
-    if (isError || !data || data.length === 0) {
+    if (isError) {
         return (
-            <div className="text-destructive">Error loading regions data.</div>
+            <div className="text-center text-destructive">
+                Unable to load regions data. Please try again later.
+            </div>
         );
     }
     return (
@@ -96,7 +100,11 @@ export function AgeGroupProportionsVsCasesAndDeathsChart() {
                 />
             </CardHeader>
             <CardContent className="flex-1 pb-0">
-                {isLoading && <Spinner />}
+                {isLoading && (
+                    <div className="flex items-center justify-center w-full">
+                        <Spinner />
+                    </div>
+                )}
                 {data && (
                     <ChartContainer
                         config={chartConfig}

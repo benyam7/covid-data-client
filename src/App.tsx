@@ -14,10 +14,10 @@ function App() {
             </div>
 
             <div className="flex flex-col w-full space-y-4 lg:items-start lg:flex-row lg:space-x-10">
-                <div className="lg:w-1/2">
+                <div className="h-full lg:w-1/2">
                     <TotalCasesVsTotalDeathsAcrossRegions />
                 </div>
-                <div className="lg:w-1/2">
+                <div className="h-full lg:w-1/2">
                     <AgeGroupProportionsVsCasesAndDeathsChart />
                 </div>
             </div>

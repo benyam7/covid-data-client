@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/chart';
 import { useRegionsAggregates } from '@/lib/api/api';
 import { formatLargeNumber } from '@/lib/utils';
+import Spinner from '@/components/ui/spinner';
 
 const chartConfig = {
     total_cases: {
@@ -62,6 +63,18 @@ export function TotalCasesVsTotalDeathsAcrossRegions() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
+                {isLoading && (
+                    <div className="flex items-center justify-center w-full">
+                        <Spinner />
+                    </div>
+                )}
+
+                {isError && (
+                    <div className="text-center text-destructive">
+                        Failed to load data. Please try again.
+                    </div>
+                )}
+
                 <ChartContainer config={chartConfig}>
                     <BarChart
                         accessibilityLayer

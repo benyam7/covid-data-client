@@ -37,10 +37,16 @@ export const VaccinationCoverageChoropleth = () => {
                     compare regions, and assess vaccination disparities
                     globally.
                 </CardDescription>
-                {isLoading && <Spinner />}
             </CardHeader>
             <CardContent className="h-[600px]">
-                {isError && <div className="text-destructive">Error </div>}
+                {isError && (
+                    <div className="text-center text-destructive">Error </div>
+                )}
+                {isLoading && (
+                    <div className="flex items-center justify-center w-full">
+                        <Spinner />
+                    </div>
+                )}
                 {chartData && (
                     <ResponsiveChoroplethCanvas
                         data={chartData}

@@ -31,11 +31,13 @@ export function SelectRegion({
                 <SelectGroup>
                     <SelectLabel>Regions</SelectLabel>
                     {regions.map((region) => {
-                        return (
-                            <SelectItem key={region} value={region}>
-                                {region}
-                            </SelectItem>
-                        );
+                        if (region !== 'World') {
+                            return (
+                                <SelectItem key={region} value={region}>
+                                    {region}
+                                </SelectItem>
+                            );
+                        }
                     })}
                 </SelectGroup>
             </SelectContent>

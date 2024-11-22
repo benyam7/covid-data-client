@@ -169,12 +169,15 @@ export const TotalDeathsOverTimeForSelectedRegions = React.memo(
                                 )}
                             </div>
                         </div>
-
-                        {isLoading && <Spinner />}
                     </CardHeader>
                     <CardContent className="px-2 pt-4 f sm:px-6 sm:pt-6">
                         {isError && (
                             <div className="text-destructive">Error</div>
+                        )}
+                        {isLoading && (
+                            <div className="flex items-center justify-center w-full">
+                                <Spinner />
+                            </div>
                         )}
                         <ChartContainer
                             config={chartConfig}
