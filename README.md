@@ -1,46 +1,109 @@
-# Getting Started with Create React App
+COVID-19 Data Visualization Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project provides an interactive platform for visualizing COVID-19-related data, focusing on age demographics, mortality rates, vaccination coverage, and pandemic trends across regions and countries. It combines advanced data fetching, caching strategies, and dynamic visualizations to deliver a seamless user experience.
 
-## Available Scripts
+Features
 
-In the project directory, you can run:
+1. Age Proportions and Mortality Analysis
 
-### `npm start`
+    • Component: AgeGroupProportionsVsCasesAndDeathsChart
+    • Visualizes age demographics (65+ vs. 70+) and highlights total deaths in a region or country.
+    • Allows dynamic region selection via a dropdown menu.
+    • Caching and memoization ensure smooth data handling.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. Pandemic Trends Across Regions
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+    • Component: TotalCasesVsTotalDeathsAcrossRegions
+    • Compares total cases, total deaths, and average smoking rates (male and female) across regions.
+    • Utilizes bar charts for clear comparative analysis.
 
-### `npm test`
+3. Total Deaths Over Time
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    • Component: TotalDeathsOverTimeForSelectedRegions
+    • Tracks total deaths over time for selected regions, enabling users to compare mortality trends.
+    • Dynamic date range and region selection with real-time updates.
 
-### `npm run build`
+4. Global Vaccination Coverage
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    • Component: VaccinationCoverageChoropleth
+    • Choropleth map visualizing the percentage of vaccinated people worldwide.
+    • Provides a global overview of vaccination progress and disparities.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Technology Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Frontend
 
-### `npm run eject`
+    •	Framework: React with TypeScript
+    •	Charting Libraries: Recharts, Nivo
+    •	Styling: Tailwind CSS, ShadCN components
+    •	State Management: React Hooks, Memoization
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Backend
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    •	Framework: Node.js
+    •	Database: MongoDB
+    •	Caching: Redis
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Caching Strategies
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Efficient data handling is critical for performance and scalability. The platform employs the following caching strategies:
 
-## Learn More
+1. Client-Side Caching with SWR
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    • Usage: Fetches data using hooks like useSWR for real-time updates.
+    • Benefits:
+    • Automatically handles revalidation.
+    • Caches API responses to avoid redundant network requests.
+    • Gracefully handles loading and error states.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. Backend Caching with Redis
+
+    • Usage: Stores aggregated data from MongoDB to reduce computation overhead.
+    • Implementation:
+    • Each query generates a unique cache key based on parameters like region, date, etc.
+    • Data is cached for a defined TTL (time-to-live), ensuring freshness while reducing database hits.
+
+3. Memoization
+
+    • Usage: Components like AgeGroupProportionsVsCasesAndDeathsChart and TotalDeathsOverTimeForSelectedRegions use React.useMemo for expensive computations (e.g., filtering or aggregating data).
+    • Benefits:
+    • Optimizes rendering performance.
+    • Prevents unnecessary recalculations.
+
+How to Run the Project
+
+Prerequisites
+
+    •	Node.js: v16+
+    •	MongoDB: A running instance of MongoDB.
+    •	Redis: A running Redis server for backend caching.
+
+Setup
+
+    1.	Clone the repository:
+
+git clone https://github.com/covid-data-benyam.git
+cd your-repo
+
+    2.	Install dependencies:
+
+npm install
+
+    3.	Run the development server:
+
+npm run dev
+
+    5.	Open the app in your browser:
+
+http://localhost:3000
+
+Use Cases
+
+    1.	Public Health Analysis
+    •	Identify age demographics most affected by COVID-19.
+    •	Compare mortality trends and vaccination rates across regions.
+    2.	Policy Decision Support
+    •	Visualize global vaccination coverage to guide resource allocation.
+    •	Analyze the impact of health behaviors like smoking on pandemic outcomes.
+    3.	Research and Reporting
+    •	Use charts to support academic studies and media reports.
