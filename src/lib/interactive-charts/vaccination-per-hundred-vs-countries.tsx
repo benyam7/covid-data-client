@@ -40,7 +40,9 @@ export const VaccinationCoverageChoropleth = () => {
             </CardHeader>
             <CardContent className="h-[600px]">
                 {isError && (
-                    <div className="text-center text-destructive">Error </div>
+                    <div className="my-10 text-center text-destructive">
+                        Unable to load data. Please try again later.
+                    </div>
                 )}
                 {isLoading && (
                     <div className="flex items-center justify-center w-full">

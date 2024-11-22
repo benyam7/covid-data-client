@@ -72,13 +72,6 @@ export function AgeGroupProportionsVsCasesAndDeathsChart() {
           ]
         : [];
 
-    if (isError) {
-        return (
-            <div className="text-center text-destructive">
-                Unable to load regions data. Please try again later.
-            </div>
-        );
-    }
     return (
         <Card className="flex flex-col">
             <CardHeader className="items-center pb-0">
@@ -100,6 +93,11 @@ export function AgeGroupProportionsVsCasesAndDeathsChart() {
                 />
             </CardHeader>
             <CardContent className="flex-1 pb-0">
+                {isError && (
+                    <div className="my-10 text-center text-destructive">
+                        Unable to load data. Please try again later.
+                    </div>
+                )}
                 {isLoading && (
                     <div className="flex items-center justify-center w-full">
                         <Spinner />

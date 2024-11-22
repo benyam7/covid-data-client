@@ -115,14 +115,6 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
     }, [data, comparisonCountries, starDate, endDate]);
     const isMobile = useIsMobile();
 
-    if (isError) {
-        return (
-            <div className="text-center text-destructive">
-                Unable to cases data. Please try again later.
-            </div>
-        );
-    }
-
     return (
         <div className="flex w-full space-x-10 ">
             <Card className="w-full md:w-4/5">
@@ -167,6 +159,12 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
                     </div>
                 </CardHeader>
                 <CardContent className="px-2 pt-4 f sm:px-6 sm:pt-6">
+                    {isError && (
+                        <div className="my-10 text-center text-destructive">
+                            Unable to load data. Please try again later.
+                        </div>
+                    )}
+
                     {isLoading && (
                         <div className="flex items-center justify-center w-full">
                             <Spinner />
