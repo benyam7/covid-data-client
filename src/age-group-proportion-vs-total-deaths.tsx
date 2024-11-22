@@ -70,12 +70,10 @@ export function AgeGroupProportionsVsCasesAndDeathsChart() {
           ]
         : [];
 
-    if (isLoading) {
-        return <Spinner />;
-    }
-
     if (isError || !data || data.length === 0) {
-        return <div>Error loading regions data.</div>;
+        return (
+            <div className="text-destructive">Error loading regions data.</div>
+        );
     }
     return (
         <Card className="flex flex-col">
@@ -99,61 +97,67 @@ export function AgeGroupProportionsVsCasesAndDeathsChart() {
                 />
             </CardHeader>
             <CardContent className="flex-1 pb-0">
-                <ChartContainer
-                    config={chartConfig}
-                    className="mx-auto aspect-square max-h-[250px]"
-                >
-                    <PieChart>
-                        <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent hideLabel />}
-                        />
-                        <Pie
-                            data={chartData}
-                            dataKey="value"
-                            nameKey="name"
-                            innerRadius={70}
-                            strokeWidth={5}
-                        >
-                            <Label
-                                content={({ viewBox }) => {
-                                    if (
-                                        viewBox &&
-                                        'cx' in viewBox &&
-                                        'cy' in viewBox
-                                    ) {
-                                        return (
-                                            <text
-                                                x={viewBox.cx}
-                                                y={viewBox.cy}
-                                                textAnchor="middle"
-                                                dominantBaseline="middle"
-                                            >
-                                                <tspan
+                {isLoading && <Spinner />}
+                {data && (
+                    <ChartContainer
+                        config={chartConfig}
+                        className="mx-auto aspect-square max-h-[250px]"
+                    >
+                        <PieChart>
+                            <ChartTooltip
+                                cursor={false}
+                                content={<ChartTooltipContent hideLabel />}
+                            />
+                            <Pie
+                                data={chartData}
+                                dataKey="value"
+                                nameKey="name"
+                                innerRadius={70}
+                                strokeWidth={5}
+                            >
+                                <Label
+                                    content={({ viewBox }) => {
+                                        if (
+                                            viewBox &&
+                                            'cx' in viewBox &&
+                                            'cy' in viewBox
+                                        ) {
+                                            return (
+                                                <text
                                                     x={viewBox.cx}
                                                     y={viewBox.cy}
-                                                    className="text-3xl font-bold fill-foreground"
+                                                    textAnchor="middle"
+                                                    dominantBaseline="middle"
                                                 >
-                                                    {formatLargeNumber(
-                                                        selectedData?.total_deaths ||
-                                                            0
-                                                    )}
-                                                </tspan>
-                                                <tspan
-                                                    x={viewBox.cx}
-                                                    y={(viewBox.cy || 0) + 24}
-                                                    className="fill-muted-foreground"
-                                                >
-                                                    Total Deaths
-                                                </tspan>
-                                            </text>
-                                        );
-                                    }
-                                }}
-                            />
-                        </Pie>
-                    </PieChart>
-                </ChartContainer>
+                                                    <tspan
+                                                        x={viewBox.cx}
+                                                        y={viewBox.cy}
+                                                        className="text-3xl font-bold fill-foreground"
+                                                    >
+                                                        {formatLargeNumber(
+                                                            selectedData?.total_deaths ||
+                                                                0
+                                                        )}
+                                                    </tspan>
+                                                    <tspan
+                                                        x={viewBox.cx}
+                                                        y={
+                                                            (viewBox.cy || 0) +
+                                                            24
+                                                        }
+                                                        className="fill-muted-foreground"
+                                                    >
+                                                        Total Deaths
+                                                    </tspan>
+                                                </text>
+                                            );
+                                        }
+                                    }}
+                                />
+                            </Pie>
+                        </PieChart>
+                    </ChartContainer>
+                )}
             </CardContent>
             <CardFooter className="flex-col gap-2 text-sm">
                 <div className="leading-none text-muted-foreground">
