@@ -49,7 +49,7 @@ export type RegionData = {
     aged_70_older?: number;
 };
 
-export function useTotalCases(query: QueryParams) {
+export function useQueryCovidData(query: QueryParams) {
     const baseUrl = 'http://localhost:8000/api/comparison';
     const url = buildURL(baseUrl, query);
     const { data, error, isLoading } = useSWR<CountryData[]>(url, fetcher);

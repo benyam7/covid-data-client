@@ -18,7 +18,7 @@ import {
     ChartTooltipContent,
 } from '@/components/ui/chart';
 import { ComparisonInput } from '@/components/ui/comparision-input';
-import { CountryData, useTotalCases } from '@/lib/api/api';
+import { CountryData, useQueryCovidData } from '@/lib/api/api';
 import Spinner from '@/components/ui/spinner';
 import { BASELINE_REGION } from '@/lib/utils/constants';
 import { DateRangePicker } from '@/components/ui/date-picker-range';
@@ -58,7 +58,7 @@ export const TotalDeathsOverTimeForSelectedRegions = React.memo(
             return Array.from(regions);
         };
 
-        const { isError, isLoading, data } = useTotalCases({
+        const { isError, isLoading, data } = useQueryCovidData({
             country: comparisonRegions,
             query_type: 'total_deaths',
             startDate: starDate.toISOString().split('T')[0],
