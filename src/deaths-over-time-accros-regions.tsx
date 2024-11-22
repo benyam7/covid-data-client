@@ -241,6 +241,7 @@ export const TotalDeathsOverTimeForSelectedRegions = React.memo(
                                                 ).toLocaleDateString('en-US', {
                                                     month: 'short',
                                                     day: 'numeric',
+                                                    year: '2-digit',
                                                 });
                                             }}
                                             indicator="dot"
@@ -267,7 +268,7 @@ export const TotalDeathsOverTimeForSelectedRegions = React.memo(
                                     );
                                 })}
                                 <ChartLegend
-                                    className="hidden md:block"
+                                    className="hidden md:flex"
                                     content={<ChartLegendContent />}
                                 />
                             </AreaChart>

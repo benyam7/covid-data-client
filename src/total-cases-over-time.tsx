@@ -184,6 +184,7 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
                                 cursor={false}
                                 content={
                                     <ChartTooltipContent
+                                        indicator="line"
                                         labelFormatter={(value) => {
                                             return new Date(
                                                 value
@@ -193,7 +194,6 @@ export const TotalCasesOverTime = React.memo(function TotalCasesOverTime() {
                                                 year: 'numeric',
                                             });
                                         }}
-                                        indicator="dot"
                                     />
                                 }
                             />
