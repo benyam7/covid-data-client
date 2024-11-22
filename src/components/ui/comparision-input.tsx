@@ -26,6 +26,7 @@ export const ComparisonInput = React.memo(
         role,
         comparisonInputs,
         baselineInput,
+        openByDefault = true,
     }: {
         onSelect: (selectedItems: string[]) => void;
         className?: string;
@@ -33,6 +34,7 @@ export const ComparisonInput = React.memo(
         role: string;
         comparisonInputs: string[];
         baselineInput: string;
+        openByDefault?: boolean;
     }) => {
         const isMobile = useIsMobile();
         const [open, setOpen] = useState(false);
@@ -70,7 +72,10 @@ export const ComparisonInput = React.memo(
                 <label className="block mb-2 text-sm text-gray-700 uppercase">
                     {title}
                 </label>
-                <Popover open={isMobile ? open : true} onOpenChange={setOpen}>
+                <Popover
+                    open={isMobile ? open : openByDefault ? true : open}
+                    onOpenChange={setOpen}
+                >
                     <PopoverTrigger asChild>
                         <Button
                             variant="outline"
