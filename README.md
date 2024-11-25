@@ -119,6 +119,8 @@ npm run dev
 
 http://localhost:3000
 
+    5. Make sure to update your package.json file proxy to your backend server.
+
 Use Cases
 
 1. Public Health Analysis
