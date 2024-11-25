@@ -56,10 +56,7 @@ export function TotalCasesVsTotalDeathsAcrossRegions() {
                 <CardDescription>
                     This visualization provides a comprehensive comparison of
                     pandemic-related metrics and health behaviors across
-                    regions. By analyzing total cases, total deaths, and the
-                    average smoking rates among males and females, we can
-                    identify correlations and patterns that highlight the impact
-                    of health behaviors on pandemic outcomes.
+                    regions.
                 </CardDescription>
             </CardHeader>
             <CardContent>

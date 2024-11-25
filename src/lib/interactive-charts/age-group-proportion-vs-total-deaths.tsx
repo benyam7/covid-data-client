@@ -79,8 +79,8 @@ export function AgeGroupProportionsVsCasesAndDeathsChart() {
         );
     }
     return (
-        <Card className="flex flex-col">
-            <CardHeader className="items-center pb-0">
+        <Card className="flex flex-col lg:-mt-4">
+            <CardHeader className="pb-0 ">
                 <CardTitle>
                     Age Proportions and Mortality: A Regional Perspective
                 </CardTitle>
@@ -91,14 +91,13 @@ export function AgeGroupProportionsVsCasesAndDeathsChart() {
                     the total number of deaths, providing a clear view of age
                     demographics in relation to mortality rates.
                 </CardDescription>
-
                 <SelectRegion
                     onRegionChange={(region) => {
                         setSelectedRegion(region);
                     }}
                 />
             </CardHeader>
-            <CardContent className="flex-1 pb-0">
+            <CardContent className="pb-0  lg:m5-10">
                 {isError && (
                     <div className="my-10 text-center text-destructive">
                         Unable to load data. Please try again later.

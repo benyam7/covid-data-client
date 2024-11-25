@@ -128,7 +128,7 @@ export const TotalDeathsOverTimeForSelectedRegions = React.memo(
             <div className="flex w-full space-x-10 ">
                 <Card className="w-full md:w-4/5">
                     <CardHeader className="flex items-center gap-2 py-5 space-y-0 border-b sm:flex-row">
-                        <div className="grid flex-1 gap-3 text-center sm:text-left">
+                        <div className="grid flex-1 gap-3 sm:text-left">
                             <CardTitle>
                                 Total Deaths Over Time by Region
                             </CardTitle>
